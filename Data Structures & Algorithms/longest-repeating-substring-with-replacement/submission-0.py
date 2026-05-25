@@ -1,0 +1,21 @@
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        result = 0
+        left = 0
+
+        letterMap = {}
+        maxf = 0
+
+        for right in range(len(s)):
+            letterMap[s[right]] = 1 + letterMap.get(s[right], 0)
+            maxf = max(maxf, letterMap[s[right]])
+
+            while (right - left + 1) - maxf > k:
+                letterMap[s[left]] -= 1
+                left += 1
+            
+            result = max(result, right - left + 1)
+
+        return result
+
+
